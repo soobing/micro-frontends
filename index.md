@@ -1,12 +1,10 @@
-Techniques, strategies and recipes for building a __modern web app__ with __multiple teams__ that can __ship features independently__.
+**여러 팀이**  **독립적으로 기능(features)을 제공**할 수 있게 __모던 웹 앱__ 을 구축하는 기술, 전략 및 레시피.
+## Micro Frontends란 무엇인가?
+**Micro Frontends**라는 용어는 2016년 말에 [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar/techniques/micro-frontends)에서 처음 등장했다. 그것은 마이크로 서비스의 개념을 프론트엔드 세계로 확장한다. 현재 추세는 기능이 풍부하고 파워풀한 브라우저 애플리케이션, 즉 마이크로 서비스 아키텍처 위에 단일 페이지 앱(SPA)을 구축하는 것이다. 시간이 지남에 따라, 프론트엔드는 여러 분리된 팀에 의해 개발되는 경우가 자주 생기다보니 프론트엔드 계층은 커지고 유지 관리가 더 어려워지고 있다. 이것을 [프론트엔드 모노리스(Frontend Monolith)](https://www.youtube.com/watch?v=pU1gXA0rfwc) 라고 부른다.
 
-## What are Micro Frontends?
+Micro Frontends는 개별 팀들이 소유하고있는 웹사이트나 웹앱을 하나의 기능으로 보고, **그 기능(features)을 구성** 하자는 방식의 아이디어 이다. 각 팀 별로 담당하는 **뚜렷한 비즈니스 영역** 혹은  **미션**이 있을 것이다. 하나의 팀내 에서는 **상호 기능(cross functional)**을 통해 데이터베이스에서 사용자 인터페이스에 이르기까지 **end-to-end** 기능을 개발한다.
 
-The term __Micro Frontends__ first came up in [ThoughtWorks Technology Radar](https://www.thoughtworks.com/radar/techniques/micro-frontends) at the end of 2016. It extends the concepts of micro services to the frontend world. The current trend is to build a feature-rich and powerful browser application, aka single page app, which sits on top of a micro service architecture. Over time the frontend layer, often developed by a separate team, grows and gets more difficult to maintain. That's what we call a [Frontend Monolith](https://www.youtube.com/watch?v=pU1gXA0rfwc).
-
-The idea behind Micro Frontends is to think about a website or web app as __a composition of features__ which are owned by __independent teams__. Each team has a __distinct area of business__ or __mission__ it cares about and specialises in. A team is __cross functional__ and develops its features __end-to-end__, from database to user interface.
-
-However, this idea is not new. It has a lot in common with the [Self-contained Systems](http://scs-architecture.org/) concept. In the past approaches like this went by the name of [Frontend Integration for Verticalised Systems](https://dev.otto.de/2014/07/29/scaling-with-microservices-and-vertical-decomposition/). But Micro Frontends is clearly a more friendly and less bulky term.
+그러나, 이 아이디어는 새롭게 등장한 것이 아니다. [Self-contained Systems](http://scs-architecture.org/) 컨셉과 굉장히 공통점이 많다. 과거에는 이러한 접근 방식을 [수직화된 시스템을 위한 Frontend Integration(Frontend Integration for Verticalised Systems)](https://dev.otto.de/2014/07/29/scaling-with-microservices-and-vertical-decomposition/)라는 이름으로 불리기도 했다. 하지만 Micro Frontends는 확실히 더 친근하고 덜 부담스러운 용어이다.
 
 __Monolithic Frontends__
 ![Monolithic Frontends](./ressources/diagrams/organisational/monolith-frontback-microservices.png)
