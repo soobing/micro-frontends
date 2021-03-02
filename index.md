@@ -36,13 +36,13 @@ __Organisation in Verticals__
 * __탄력있는 사이트 구축__<br>JavaScript에서 에러가 나거나 아직 실행되지 않은 경우에도 기능(feature) 사용이 가능 해야 한다. 눈에 띄는 성능 향상을 위해 [범용 렌더링(Universal Rendering)](#serverside-rendering--universal-rendering) 과 Progressive Enhancement을 사용하자.
 ---
 
-## The DOM is the API
+## DOM은 API다.
 
-[Custom Elements](https://developers.google.com/web/fundamentals/getting-started/primers/customelements), the interoperability aspect from the Web Components Spec, are a good primitive for integration in the browser. Each team builds their component __using their web technology of choice__ and __wraps it inside a Custom Element__ (e.g. `<order-minicart></order-minicart>`). The DOM specification of this particular element (tag-name, attributes & events) acts as the contract or public API for other teams. The advantage is that they can use the component and its functionality without having to know the implementation. They just have to be able to interact with the DOM.
+[Custom Elements](https://developers.google.com/web/fundamentals/getting-started/primers/customelements)는 상호운용성 측면에서 브라우저의 통합에 훌륭한 기본 요소 이다. 각 팀은 **선택한 웹 기술**을 사용하여 컴포넌트를 구축하고 이를 **사용자 지정 요소에 넣는다**(예: `<order-minicart></order-minicart>`). 특정 element(tag-name, attributes & events)의 DOM specification은 다른 팀에게 계약(contract) 또는 공개 API 역할을 한다. 구현 방법을 알 필요 없이 컴포넌트와 기능을 사용할 수 있다는 것이 장점이다. 그들은 단지 DOM과 상호작용을 할 수 있으면 됩니다.
 
-But Custom Elements alone are not the solution to all our needs. To address progressive enhancement, universal rendering or routing we need additional pieces of software.
+그러나 Custom Elements 만으로는 모든 요구 사항을 해결할 수 없다. 점진적인 향상, 범용 렌더링 또는 라우팅 문제를 해결하기 위해서는 추가 소프트웨어가 필요하다.
 
-This page is divided into two main areas. First we will discuss [Page Composition](#page-composition) - how to assemble a page out of components owned by different teams. After that we'll show examples for implementing clientside [Page Transition](#page-transition).
+이 페이지는 크게 두 가지 영역으로 나뉜다. 첫번째는 [Page Composition](#page-composition) - 여러 팀이 소유한 컴포넌트로 페이지를 구성하는 방법에 대해 토론해 보고, 두번째로는 클라이언트단에서 [Page Transition](#page-transition)구현하는 예제에 대해 알아봅시다.
 
 ## Page Composition
 
