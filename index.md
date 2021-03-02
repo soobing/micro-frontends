@@ -44,9 +44,8 @@ __Organisation in Verticals__
 
 이 페이지는 크게 두 가지 영역으로 나뉜다. 첫번째는 [Page Composition](#page-composition) - 여러 팀이 소유한 컴포넌트로 페이지를 구성하는 방법에 대해 토론해 보고, 두번째로는 클라이언트단에서 [Page Transition](#page-transition)구현하는 예제에 대해 알아봅시다.
 
-## Page Composition
-
-Beside the __client-__ and __serverside__ integration of code written in __different frameworks__ itself, there are a lot of side topics that should be discussed: mechanisms to __isolate js__, __avoid css conflicts__, __load resources__ as needed, __share common resources__ between teams, handle __data fetching__ and think about good __loading states__ for the user. We'll go into these topics one step at a time.
+## 페이지 구성 (Page Composition)
+서로 다른 프레임워크로 작성된 **클라이언트**와 **서버**의 통합 외에도 토론되어야 할 많은 사이드 토픽들이 있다. **js 분리** 매커니즘, **css 충돌 제거**, 필요한 만큼의 **리소스 로드**, 팀 간의 **공통 리소스 공유 방법**, **데이터 fetching**, 사용자를 위한 좋은 **로딩 상태**. 우리는 이 주제들을 하나씩 다뤄볼 것이다.
 
 ### The Base Prototype
 
