@@ -23,14 +23,17 @@ __Organisation in Verticals__
 
 이 아티클의 초점은 다음과 같다. 신뢰할 수 없는 네트워크 연결에서도 사용자 인터페이스가 **즉각적으로 피드백**을 제공해야 하는 경우 순수 서버 사이드 렌더링 사이트로는 더 이상 충분하지 않다. [Optimistic UI](https://www.smashingmagazine.com/2016/11/true-lies-of-optimistic-user-interfaces/) 또는 [Skeleton Screens](http://www.lukew.com/ff/entry.asp?1797)과 같은 기술을 구현하려면 **device 자체에서** UI를 **업데이트** 할 수 있어야 한다. 구글의 용어인 [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)은 앱과 같은 성능을 제공하는 동시에 웹(progressive enhancement)의 우수한 시민이 되는 **균형잡힌 행위**를 적절하게 묘사한다. 이러한 종류의 애플리케이션은 **site-app-continuum의 중간쯤**에 있다. 여기서는 서버 기반 솔루션만으로는 더 이상 충분하지 않고, 우리는 **브라우저로 통합** 해야 한다. 
 
-## Core Ideas behind Micro Frontends
+## Micro Frontends의 핵심 아이디어
 
-* __Be Technology Agnostic__<br>Each team should be able to choose and upgrade their stack without having to coordinate with other teams. [Custom Elements](#the-dom-is-the-api) are a great way to hide implementation details while providing a neutral interface to others.
-* __Isolate Team Code__<br>Don’t share a runtime, even if all teams use the same framework. Build independent apps that are self contained. Don't rely on shared state or global variables.
-* __Establish Team Prefixes__<br>Agree on naming conventions where isolation is not possible yet. Namespace CSS, Events, Local Storage and Cookies to avoid collisions and clarify ownership.
-* __Favor Native Browser Features over Custom APIs__<br>Use [Browser Events for communication](#parent-child-communication--dom-modification) instead of building a global PubSub system. If you really have to build a cross team API, try keeping it as simple as possible.
-* __Build a Resilient Site__<br>Your feature should be useful, even if JavaScript failed or hasn't executed yet. Use [Universal Rendering](#serverside-rendering--universal-rendering) and Progressive Enhancement to improve perceived performance.
+* __기술 불가지론자__<br>각 팀은 다른 팀과 조정하지 않고도 기술 스택을 선택하고 업그레이드할 수 있어야 한다. [Custom Elements](#the-dom-is-the-api)는 구현 세부 정보를 숨기면서 다른 사용자에게 중립적인 인터페이스를 제공하는 좋은 방법이다.
 
+* __팀 코드 분리__<br>모든 팀이 동일한 프레임워크를 사용하더라도 런타임은 공유하지 말자. 공유 상태(shared state) 또는 전역 변수에 의존하지 말고 자체 독립 앱을 구축 하자.
+
+* __팀 접두사 설정__<br>명명 규칙(naming conventions)을 아직 분리할 수 없다는 것에 동의 한다. 충돌을 피하고 소유권을 명확히 하기 위해 CSS, Events, Local Storage, Cookies에 namespace를 사용하자.
+
+* __Custom APIs보다 기본 브라우저 기능 선호__<br>글로벌 PubSub 시스템을 구축하는 대신 [통신을 위한 브라우저 이벤트(Browser Events for communication)](#parent-child-communication--dom-modification)를 사용하자. 만약 당신이 정말로 크로스 팀 API를 구축해야 한다면, 가능한 간단하게 유지하도록 하자.
+
+* __탄력있는 사이트 구축__<br>JavaScript에서 에러가 나거나 아직 실행되지 않은 경우에도 기능(feature) 사용이 가능 해야 한다. 눈에 띄는 성능 향상을 위해 [범용 렌더링(Universal Rendering)](#serverside-rendering--universal-rendering) 과 Progressive Enhancement을 사용하자.
 ---
 
 ## The DOM is the API
