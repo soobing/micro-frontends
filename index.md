@@ -13,15 +13,15 @@ __Monolithic Frontends__
 __Organisation in Verticals__
 ![End-To-End Teams with Micro Frontends](./ressources/diagrams/organisational/verticals-headline.png)
 
-## What's a Modern Web App?
+## 모던 웹 앱이란 무엇인가?
 
-In the introduction I've used the phrase "building a modern web app". Let's define the assumptions that are connected with this term.
+서론에서 "모던 웹 앱 구축"이라는 문구를 사용했다. 이 용어와 관련된 가정을 정의해보자.
 
-To put this into a broader perspective, [Aral Balkan](https://ar.al/) has written a blog post about what he calls the [Documents‐to‐Applications Continuum](https://ar.al/notes/the-documents-to-applications-continuum/). He comes up with the concept of a sliding scale where a site, built out of __static documents__, connected via links, is __on the left__ end and a pure behaviour driven, __contentless application__ like an online photo editor is __on the right__.
+[Aral Balkan](https://ar.al/)은 이것을 더 넓은 시각으로 표현하기 위해 [Documents‐to‐Applications Continuum](https://ar.al/notes/the-documents-to-applications-continuum/) 라는 포스팅을 했다. **왼쪽**에는 링크로 연결된 **정적(static) 사이트**가, **오른쪽**에는 순수 행동 중심의 온라인 사진 편집기와 같은 **컨텐츠가 없는 앱**으로 구성된 사이트에서 슬라이딩 스케일(sliding scale)라는 컨셉을 고안해 냈다.
 
-If you would position your project on the __left side of this spectrum__, an __integration on webserver level__ is a good fit. With this model a server collects and __concatenates HTML strings__ from all components that make up the page requested by the user. Updates are done by reloading the page from the server or replacing parts of it via ajax. [Gustaf Nilsson Kotte](https://twitter.com/gustaf_nk/) has written a [comprehensive article](https://gustafnk.github.io/microservice-websites/) on this topic.
+**이 스펙트럼의 왼쪽**에 당신의 프로젝트를 배치하고 싶은 경우 **웹 서버단에서 통합**이 적합하다. 이 모델을 사용하여 서버는 사용자가 요청한 페이지를 구성하기 위한 모든 컴포넌트(components)에서 **HTML 문자열을 수집하고 연결**한다. 업데이트는 서버에서 페이지를 다시 리로드하거나 Ajax를 통해 페이지 일부를 교체하는 방식으로 수행된다. [Gustaf Nilsson Kotte](https://twitter.com/gustaf_nk/)는 이 주제에 대해 [포괄적인 아티클](https://gustafnk.github.io/microservice-websites/)을 썼다.
 
-When your user interface has to provide __instant feedback__, even on unreliable connections, a pure server rendered site is not sufficient anymore. To implement techniques like [Optimistic UI](https://www.smashingmagazine.com/2016/11/true-lies-of-optimistic-user-interfaces/) or [Skeleton Screens](http://www.lukew.com/ff/entry.asp?1797) you need to be able to also __update__ your UI __on the device itself__. Google's term [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/) aptly describes the __balancing act__ of being a good citizen of the web (progressive enhancement) while also providing app-like performance. This kind of application is located somewhere __around the middle of the site-app-continuum__. Here a solely server based solution is not sufficient anymore. We have to move the __integration into the browser__, and this is the focus of this article.
+이 아티클의 초점은 다음과 같다. 신뢰할 수 없는 네트워크 연결에서도 사용자 인터페이스가 **즉각적으로 피드백**을 제공해야 하는 경우 순수 서버 사이드 렌더링 사이트로는 더 이상 충분하지 않다. [Optimistic UI](https://www.smashingmagazine.com/2016/11/true-lies-of-optimistic-user-interfaces/) 또는 [Skeleton Screens](http://www.lukew.com/ff/entry.asp?1797)과 같은 기술을 구현하려면 **device 자체에서** UI를 **업데이트** 할 수 있어야 한다. 구글의 용어인 [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)은 앱과 같은 성능을 제공하는 동시에 웹(progressive enhancement)의 우수한 시민이 되는 **균형잡힌 행위**를 적절하게 묘사한다. 이러한 종류의 애플리케이션은 **site-app-continuum의 중간쯤**에 있다. 여기서는 서버 기반 솔루션만으로는 더 이상 충분하지 않고, 우리는 **브라우저로 통합** 해야 한다. 
 
 ## Core Ideas behind Micro Frontends
 
