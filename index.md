@@ -47,17 +47,18 @@ __Organisation in Verticals__
 ## 페이지 구성 (Page Composition)
 서로 다른 프레임워크로 작성된 **클라이언트**와 **서버**의 통합 외에도 토론되어야 할 많은 사이드 토픽들이 있다. **js 분리** 매커니즘, **css 충돌 제거**, 필요한 만큼의 **리소스 로드**, 팀 간의 **공통 리소스 공유 방법**, **데이터 fetching**, 사용자를 위한 좋은 **로딩 상태**. 우리는 이 주제들을 하나씩 다뤄볼 것이다.
 
-### The Base Prototype
+### 베이스 프로토타입
 
-The product page of this model tractor store will serve as the basis for the following examples.
+이 모델 트랙터 상점의 제품 페이지는 다음 예를 위한 기초가 될 것이다.
 
-It features a __variant selector__ to switch between the three different tractor models. On change product image, name, price and recommendations are updated. There is also a __buy button__, which adds the selected variant to the basket and a __mini basket__ at the top that updates accordingly.
+세 가지 트랙터 모델을 변경할 수 있는 **변경** 기능을 가지고 있다. 제품 이미지를 변경하면 이름, 가격 및 권장 사항이 업데이트 된다. 또한 선택한 항목을 바구니에 추가하는 **구입 버튼**과 그에 따라 상단에 업데이트되는 **미니 바구니**가 있다.
 
 [![Example 0 - Product Page - Plain JS](./ressources/video/model-store-0.gif)](./0-model-store/)
 
 [try in browser](./0-model-store/) & [inspect the code](https://github.com/neuland/micro-frontends/tree/master/0-model-store)
 
-All HTML is generated client side using __plain JavaScript__ and ES6 Template Strings with __no dependencies__. The code uses a simple state/markup separation and re-renders the entire HTML client side on every change - no fancy DOM diffing and __no universal rendering__ for now. Also __no team separation__ - [the code](https://github.com/neuland/micro-frontends/tree/master/0-model-store) is written in one js/css file.
+모든 HTML은 **순수 JavaScript**와 **dependency가 없는** ES6 Template Strings를 통해 클라이언트 측에서 생성된다. 이 코드는 간단한 상태/마크업 분리를 사용하고 모든 변경사항에서 클라이언트 쪽 전체 HTML을 다시 렌더링한다. - DOM 간의 비교 하지 않고, **universal rendering은 하지 않는다.** 또한 [코드](https://github.com/neuland/micro-frontends/tree/master/0-model-store)는 **구분 없이** 하나의 js/css 파일에 기록되어 있다.
+
 
 ### Clientside Integration
 
