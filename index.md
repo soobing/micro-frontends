@@ -92,9 +92,11 @@ Lets take the __buy button__ as an example. Team Product includes the button sim
  element를 명명할 때 스펙에서 요구하는 유일한 사항은 새로 등장하는 HTML 태그와의 호환성을 유지하기 위해 **대시(-)를 포함**해야 한다는 것이다. 다음 예제에서 naming convention으로 [team_color]-[feature]를 사용했다. 팀 네임 스페이스는 충돌에 대비하는 역할을 하고, DOM을 보는 것만으로 어떤 팀이 관리하는 feature 인지 명백히 알 수 있다.
 
 
-### Parent-Child Communication / DOM Modification
+### 부모(Parent)-자식(Child)간의 Communication / DOM 수정
 
 When the user selects another tractor in the __variant selector__, the __buy button has to be updated__ accordingly. To achieve this Team Product can simply __remove__ the existing element from the DOM __and insert__ a new one.
+
+사용자가 **상품 선택자**에서 다른 트랙터를 선택하면 그에 따라 **구매 버튼을 업데이트**해야 한다. Product팀은 쉽게 DOM에서 기존 element를 **제거**하고 새로운 element를**추가** 할 수 있다.
 
     container.innerHTML;
     // => <blue-buy sku="t_porsche">...</blue-buy>
@@ -102,15 +104,18 @@ When the user selects another tractor in the __variant selector__, the __buy but
 
 The `disconnectedCallback` of the old element gets invoked synchronously to provide the element with the chance to clean up things like event listeners. After that the `connectedCallback` of the newly created `t_fendt` element is called.
 
-Another more performant option is to just update the `sku` attribute on the existing element.
+예전 element의 `disconnectedCallback`는 동기적으로 호출되어 element에서 이벤트 리스너와 같은 것을 정리할 수 있는 기회를 제공합니다. 그 다음 새로 생성된 `t_fendt` element의 `connectedCallback`이 호출된다.
+
+또 다른 더 성능이 좋은 방법은 기존 element의 `sku` attribute를 업데이트하는 것이다.
 
     document.querySelector('blue-buy').setAttribute('sku', 't_fendt');
 
-If Team Product used a templating engine that features DOM diffing, like React, this would be done by the algorithm automatically.
+만약 Product팀이 React와 같은 DOM diffing을 특징으로하는 템플링 엔진을 사용한다면 자동으로 알고리즘이 수행될 것이다.
 
 ![Custom Element Attribute Change](./ressources/video/custom-element-attribute.gif)
 
-To support this the Custom Element can implement the `attributeChangedCallback` and specify a list of `observedAttributes` for which this callback should be triggered.
+이를 지원하기 위해 Custom Element는 `attributeChangedCallback`을 구현할 수 있고 callback이 트리거되어야 하는 속성 리스트를 `observedAttributes`으로 지정할 수 있다.
+
 
     const prices = {
       t_porsche: '66,00 €',
@@ -139,7 +144,9 @@ To support this the Custom Element can implement the `attributeChangedCallback` 
 
 To avoid duplication a `render()` method is introduced which is called from `connectedCallback` and `attributeChangedCallback`. This method collects needed data and innerHTML's the new markup. When deciding to go with a more sophisticated templating engine or framework inside the Custom Element, this is the place where its initialisation code would go.
 
-### Browser Support
+`connectedCallback`와 `ChangedCallback` 속성에서 모두 호출되는 중복코드를 없애기 위해 `render()`메서드를 사용 했다. render 메서드는 필요한 데이터와 innerHTML에 새로운 마크업을 수집한다. Custom Element 에서 사용할 보다 정교한 템플릿 엔진 또는 프레임워크를 결정할 때, render에서 초기화 코드가 사용된다.
+
+
 
 The above example uses the Custom Element V1 Spec which is currently [supported in Chrome, Safari and Opera](http://caniuse.com/#feat=custom-elementsv1). But with [document-register-element](https://github.com/WebReflection/document-register-element) a lightweight and battle-tested polyfill is available to make this work in all browsers. Under the hood, it uses the [widely supported](http://caniuse.com/#feat=mutationobserver) Mutation Observer API, so there is no hacky DOM tree watching going on in the background.
 
