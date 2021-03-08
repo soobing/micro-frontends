@@ -51,7 +51,7 @@ __Organisation in Verticals__
 
 이 모델 트랙터 상점의 제품 페이지는 다음 예를 위한 기초가 될 것이다.
 
-세 가지 트랙터 모델을 변경할 수 있는 **변경** 기능을 가지고 있다. 제품 이미지를 변경하면 이름, 가격 및 권장 사항이 업데이트 된다. 또한 선택한 항목을 바구니에 추가하는 **구입 버튼**과 그에 따라 상단에 업데이트되는 **미니 바구니**가 있다.
+세 가지 트랙터 모델을 변경할 수 있는 **변경** 기능을 가지고 있다. 제품 이미지를 변경하면 이름, 가격 및 권장 사항이 업데이트 된다. 또한 선택한 항목을 바구니에 추가하는 **구입 버튼**과 그에 따라 상단에 업데이트되는 **장바구니**가 있다.
 
 [![Example 0 - Product Page - Plain JS](./ressources/video/model-store-0.gif)](./0-model-store/)
 
@@ -60,15 +60,15 @@ __Organisation in Verticals__
 모든 HTML은 **순수 JavaScript**와 **dependency가 없는** ES6 Template Strings를 통해 클라이언트 측에서 생성된다. 이 코드는 간단한 상태/마크업 분리를 사용하고 모든 변경사항에서 클라이언트 쪽 전체 HTML을 다시 렌더링한다. - DOM 간의 비교 하지 않고, **universal rendering은 하지 않는다.** 또한 [코드](https://github.com/neuland/micro-frontends/tree/master/0-model-store)는 **구분 없이** 하나의 js/css 파일에 기록되어 있다.
 
 
-### Clientside Integration
+### 클라이언트 측 통합
 
-In this example, the page is split into separate components/fragments owned by three teams. __Team Checkout__ (blue) is now responsible for everything regarding the purchasing process - namely the __buy button__ and __mini basket__. __Team Inspire__ (green) manages the __product recommendations__ on this page. The page itself is owned by __Team Product__ (red).
+예제에서 이 페이지는 세개의 팀이 별도로 소유한 components/fragments로 분할 된다. 이제 **구매 버튼**과 **장바구니**와 같은 구매 프로세스와 관련된 모든 책임은 **Checkout팀 (파란색)**이 가지고 있다고 하자. **Inspire팀 (녹색)**은 이 페이지의 **추천 제품**을 관리한다. 페이지 자체는 **Product팀 (빨간색)**이 소유하고 있다.
 
 [![Example 1 - Product Page - Composition](./ressources/screen/three-teams.png)](./1-composition-client-only/)
 
 [try in browser](./1-composition-client-only/) & [inspect the code](https://github.com/neuland/micro-frontends/tree/master/1-composition-client-only)
 
-__Team Product__ decides which functionality is included and where it is positioned in the layout. The page contains information that can be provided by Team Product itself, like the product name, image and the available variants. But it also includes fragments (Custom Elements) from the other teams.
+**Product팀**은 어떤 기능이 포함되어 있는지, 그리고 그것이 레이아웃에서 어디에 위치하는게 좋을지 결정한다. 페이지에는 Product팀 자체에서 제공할 수 있는 제품 이름, 이미지 및 선택 가능한 옵션들과 같은 정보가 들어 있다. 그러나 페이지에는 다른 팀의 fragments(Custom Elements)도 포함되어 있다.
 
 ### How to Create a Custom Element?
 
