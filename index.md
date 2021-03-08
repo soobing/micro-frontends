@@ -70,9 +70,11 @@ __Organisation in Verticals__
 
 **Product팀**은 어떤 기능이 포함되어 있는지, 그리고 그것이 레이아웃에서 어디에 위치하는게 좋을지 결정한다. 페이지에는 Product팀 자체에서 제공할 수 있는 제품 이름, 이미지 및 선택 가능한 옵션들과 같은 정보가 들어 있다. 그러나 페이지에는 다른 팀의 fragments(Custom Elements)도 포함되어 있다.
 
-### How to Create a Custom Element?
+### Custom Element는 어떻게 만들까?
 
 Lets take the __buy button__ as an example. Team Product includes the button simply adding `<blue-buy sku="t_porsche"></blue-buy>` to the desired position in the markup. For this to work, Team Checkout has to register the element `blue-buy` on the page.
+
+**구매 버튼**을 예로 들어 보자. Product팀은 마크업에서 원하는 위치에 `<blue-buy sku="t_porsche"></blue-buy>` 버튼을 간단히 추가할 수 있다. 구매 기능이 작동하려면 Checkout팀은 `blue-buy` element를 페이지에 등록해야 한다.
 
     class BlueBuy extends HTMLElement {
       connectedCallback() {
@@ -83,11 +85,12 @@ Lets take the __buy button__ as an example. Team Product includes the button sim
     }
     window.customElements.define('blue-buy', BlueBuy);
 
-Now every time the browser comes across a new `blue-buy` tag, the `connectedCallback` is called. `this` is the reference to the root DOM node of the custom element. All properties and methods of a standard DOM element like `innerHTML` or `getAttribute()` can be used.
+이제 브라우저가 `blue-buy` 태그를 만날 때마다 `connectedCallback`가 호출된다. `this`는 custom element의 root DOM 노드에 대한 참조다. `innerHTML` 또는 `getAttribute()`와 같이 표준 DOM element의 모든 properties와 methods를 사용할 수 있다.
 
 ![Custom Element in Action](./ressources/video/custom-element.gif)
 
-When naming your element the only requirement the spec defines is that the name must __include a dash (-)__ to maintain compatibility with upcoming new HTML tags. In the upcoming examples the naming convention `[team_color]-[feature]` is used. The team namespace guards against collisions and this way the ownership of a feature becomes obvious, simply by looking at the DOM.
+ element를 명명할 때 스펙에서 요구하는 유일한 사항은 새로 등장하는 HTML 태그와의 호환성을 유지하기 위해 **대시(-)를 포함**해야 한다는 것이다. 다음 예제에서 naming convention으로 [team_color]-[feature]를 사용했다. 팀 네임 스페이스는 충돌에 대비하는 역할을 하고, DOM을 보는 것만으로 어떤 팀이 관리하는 feature 인지 명백히 알 수 있다.
+
 
 ### Parent-Child Communication / DOM Modification
 
