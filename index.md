@@ -151,9 +151,9 @@ To avoid duplication a `render()` method is introduced which is called from `con
 
 위의 예에서는 현재 [Chrome, Safari 및 Opera에서 지원](http://caniuse.com/#feat=custom-elementsv1)되는 Custom Element V1 Spec을 사용한다. 그러나 [document-register-element](https://github.com/WebReflection/document-register-element)를 사용하면 가볍고 battle-tested polyfill을 모든 브라우저에서 사용할 수 있다. Under the hood, [널리 지원](http://caniuse.com/#feat=mutationobserver)되는 Mutation Observer API를 사용하기 때문에 백그라운드에서 해킹된 DOM 트리가 감시될 경우는 없다.
 
-### Framework Compatibility
+### Framework 호환성
 
-Because Custom Elements are a web standard, all major JavaScript frameworks like Angular, React, Preact, Vue or Hyperapp support them. But when you get into the details, there are still a few implementation problems in some frameworks. At [Custom Elements Everywhere](https://custom-elements-everywhere.com/) [Rob Dodson](https://twitter.com/rob_dodson) has put together a compatibility test suite that highlights unresolved issues.
+Custom Elements는 웹 표준이기 때문에 Angular, React, Preact, Vue 또는 Hyperapp와 같은 주요 JavaScript 프레임워크를 모두 지원한다. 그러나 세부 사항을 살펴보면 일부 프레임워크에서는 여전히 몇 가지 구현 문제가 있습니다. [Rob Dodson](https://twitter.com/rob_dodson)은 [Custom Elements Everywhere](https://custom-elements-everywhere.com/) 에서 해결되지 않은 호환성 테스트 핵심 문제 세트를 모아두었다.
 
 ### Child-Parent or Siblings Communication / DOM Events
 
