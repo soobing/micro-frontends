@@ -147,8 +147,9 @@ To avoid duplication a `render()` method is introduced which is called from `con
 `connectedCallback`와 `ChangedCallback` 속성에서 모두 호출되는 중복코드를 없애기 위해 `render()`메서드를 사용 했다. render 메서드는 필요한 데이터와 innerHTML에 새로운 마크업을 수집한다. Custom Element 에서 사용할 보다 정교한 템플릿 엔진 또는 프레임워크를 결정할 때, render에서 초기화 코드가 사용된다.
 
 
+### 브라우저 지원
 
-The above example uses the Custom Element V1 Spec which is currently [supported in Chrome, Safari and Opera](http://caniuse.com/#feat=custom-elementsv1). But with [document-register-element](https://github.com/WebReflection/document-register-element) a lightweight and battle-tested polyfill is available to make this work in all browsers. Under the hood, it uses the [widely supported](http://caniuse.com/#feat=mutationobserver) Mutation Observer API, so there is no hacky DOM tree watching going on in the background.
+위의 예에서는 현재 [Chrome, Safari 및 Opera에서 지원](http://caniuse.com/#feat=custom-elementsv1)되는 Custom Element V1 Spec을 사용한다. 그러나 [document-register-element](https://github.com/WebReflection/document-register-element)를 사용하면 가볍고 battle-tested polyfill을 모든 브라우저에서 사용할 수 있다. Under the hood, [널리 지원](http://caniuse.com/#feat=mutationobserver)되는 Mutation Observer API를 사용하기 때문에 백그라운드에서 해킹된 DOM 트리가 감시될 경우는 없다.
 
 ### Framework Compatibility
 
