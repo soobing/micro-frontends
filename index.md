@@ -51,7 +51,7 @@ __Organisation in Verticals__
 
 이 모델 트랙터 상점의 제품 페이지는 다음 예를 위한 기초가 될 것이다.
 
-세 가지 트랙터 모델을 변경할 수 있는 **변경** 기능을 가지고 있다. 제품 이미지를 변경하면 이름, 가격 및 권장 사항이 업데이트 된다. 또한 선택한 항목을 바구니에 추가하는 **구입 버튼**과 그에 따라 상단에 업데이트되는 **장바구니**가 있다.
+세 가지 트랙터 모델을 변경할 수 있는 **상품 변경** 기능을 가지고 있다. 제품 이미지를 변경하면 이름, 가격 및 권장 사항이 업데이트 된다. 또한 선택한 항목을 바구니에 추가하는 **구입 버튼**과 그에 따라 상단에 업데이트되는 **장바구니**가 있다.
 
 [![Example 0 - Product Page - Plain JS](./ressources/video/model-store-0.gif)](./0-model-store/)
 
@@ -155,13 +155,16 @@ To avoid duplication a `render()` method is introduced which is called from `con
 
 Custom Elements는 웹 표준이기 때문에 Angular, React, Preact, Vue 또는 Hyperapp와 같은 주요 JavaScript 프레임워크를 모두 지원한다. 그러나 세부 사항을 살펴보면 일부 프레임워크에서는 여전히 몇 가지 구현 문제가 있습니다. [Rob Dodson](https://twitter.com/rob_dodson)은 [Custom Elements Everywhere](https://custom-elements-everywhere.com/) 에서 해결되지 않은 호환성 테스트 핵심 문제 세트를 모아두었다.
 
-### Child-Parent or Siblings Communication / DOM Events
+### 자식(Child)-부모(Parent) or 형제(Siblings) Communication / DOM Events
 
-But passing down attributes is not sufficient for all interactions. In our example the __mini basket should refresh__ when the user performs a __click on the buy button__.
+그러나 attribute들을 아래로 전달하는 것만으로는 모든 인터렉션을 위해 충분하지 않다. 이 예에서는 사용자가 구매 버튼을 클릭하면 **장바구니는 꼭 refresh 되어야 한다**.
 
-Both fragments are owned by Team Checkout (blue), so they could build some kind of internal JavaScript API that lets the mini basket know when the button was pressed. But this would require the component instances to know each other and would also be an isolation violation.
+Checkout 팀(파란색)이 fragments 두 개 모두 소유하고 있으므로 구매 버튼을 클릭 했을 때, 장바구니가 알 수 있게 내부 JavaScript API를 구축할 수 있다. 그러나 이렇게 하려면 component 인스턴스가 서로 알고 있어야 하며 격리 위반(isolation violation)이 될 수도 있다.
 
 A cleaner way is to use a PubSub mechanism, where a component can publish a message and other components can subscribe to specific topics. Luckily browsers have this feature built-in. This is exactly how browser events like `click`, `select` or `mouseover` work. In addition to native events there is also the possibility to create higher level events with `new CustomEvent(...)`. Events are always tied to the DOM node they were created/dispatched on. Most native events also feature bubbling. This makes it possible to listen for all events on a specific sub-tree of the DOM. If you want to listen to all events on the page, attach the event listener to the window element. Here is how the creation of the `blue:basket:changed`-event looks in the example:
+
+더 깨끗한 방법은 PubSub 메커니즘을 사용하는 것이다. component는 메시지를 publish 할 수 있고 다른 component들은 특정 주제를 subscribe 할 수 있다. 다행히도 브라우저들은 이 기능(feature)이 내장되어 있다. `click`, `select`, `mouseover`와 같은 브라우저 이벤트들이 바로 이런 방식으로 작동한다.native 이벤트 외에도, `new CustomEvent(...)`와 같이 더 높은 수준(level)의 이벤트를 만들 수도 있다. 이벤트는 항상 created/dispatched 된 DOM 노드에 묶여 있다. 대부분의 native 이벤트는 bubbling을 특징으로 가지고 있다. 이것은 DOM의 특정 하위트리(sub-tree)에서 모든 이벤트를 listen 할 수 있게 한다. 페이지의 모든 이벤트를 듣고 싶은 경우 window element에 이벤트 리스너를 연결하면 된다. 아래는 `blue:basket:changed` 이벤트가 어떻게 생겼는지 보여주는 예제이다.
+
 
     class BlueBuy extends HTMLElement {
       [...]
@@ -184,7 +187,7 @@ A cleaner way is to use a PubSub mechanism, where a component can publish a mess
       }
     }
 
-The mini basket can now subscribe to this event on `window` and get notified when it should refresh its data.
+이제 장바구니는 `window`에서 이 이벤트를 subscribe하고 그것의 데이터를 새로고침 해야 할 때 알림을 받을 수 있다.
 
     class BlueBasket extends HTMLElement {
       connectedCallback() {
@@ -199,7 +202,8 @@ The mini basket can now subscribe to this event on `window` and get notified whe
       }
     }
 
-With this approach the mini basket fragment adds a listener to a DOM element which is outside its scope (`window`). This should be ok for many applications, but if you are uncomfortable with this you could also implement an approach where the page itself (Team Product) listens to the event and notifies the mini basket by calling `refresh()` on the DOM element.
+이러한 방법으로 장바구니는 그것의 스코프(`window`) 밖에 있는 밖에 있는 DOM element에 listener를 추가한다. 이 방법은 많은 애플리케이션에게 괜찮아야 하지만, 만약 이 방법이 불편할 경우 페이지 자체(Product 팀)가 이벤트를 listen하고 DOM element의 `refresh()`를 호출하므로써 장바구니에게 알림을 주는 방식으로 구현할 수도 있다.
+
 
     // page.js
     const $ = document.getElementsByTagName;
@@ -208,8 +212,7 @@ With this approach the mini basket fragment adds a listener to a DOM element whi
       $('blue-basket')[0].refresh();
     });
 
-Imperatively calling DOM methods is quite uncommon, but can be found in [video element api](https://developer.mozilla.org/de/docs/Web/HTML/Using_HTML5_audio_and_video#Controlling_media_playback) for example. If possible the use of the declarative approach (attribute change) should be preferred.
-
+DOM 메소드를 호출하는 것은 매우 드물지만, [video element api](https://developer.mozilla.org/de/docs/Web/HTML/Using_HTML5_audio_and_video#Controlling_media_playback)에서 예시를 볼 수 있다. 가능하면 선언적 접근법(속성 변경)의 사용을 선호해야 한다.
 ## Serverside Rendering / Universal Rendering
 
 Custom Elements are great for integrating components inside the browser. But when building a site that is accessible on the web, chances are that initial load performance matters and users will see a white screen until all js frameworks are downloaded and executed. Additionally, it's good to think about what happens to the site if the JavaScript fails or is blocked. [Jeremy Keith](https://adactio.com/) explains the importance in his ebook/podcast [Resilient Web Design](https://resilientwebdesign.com/). Therefore the ability to render the core content on the server is key. Sadly the web component spec does not talk about server rendering at all. No JavaScript, no Custom Elements :(
