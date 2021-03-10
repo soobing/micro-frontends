@@ -215,7 +215,7 @@ A cleaner way is to use a PubSub mechanism, where a component can publish a mess
 DOM 메소드를 호출하는 것은 매우 드물지만, [video element api](https://developer.mozilla.org/de/docs/Web/HTML/Using_HTML5_audio_and_video#Controlling_media_playback)에서 예시를 볼 수 있다. 가능하면 선언적 접근법(속성 변경)의 사용을 선호해야 한다.
 ## Serverside Rendering / Universal Rendering
 
-Custom Elements are great for integrating components inside the browser. But when building a site that is accessible on the web, chances are that initial load performance matters and users will see a white screen until all js frameworks are downloaded and executed. Additionally, it's good to think about what happens to the site if the JavaScript fails or is blocked. [Jeremy Keith](https://adactio.com/) explains the importance in his ebook/podcast [Resilient Web Design](https://resilientwebdesign.com/). Therefore the ability to render the core content on the server is key. Sadly the web component spec does not talk about server rendering at all. No JavaScript, no Custom Elements :(
+Custom Element는 브라우저 내의 컴포넌트를 통합하는 데 유용하다. 그러나 웹에서 접속 가능한 사이트를 구축할 때 초기 load performance가 문제될 가능성이 있고 모든 js 프레임워크가 다운로드되고 실행될 때까지 사용자는 흰색 화면을 볼 수 있다. 또한 JavaScript가 실패하거나 차단될 경우 사이트에 어떤 일이 발생할지 생각해 보는 것이 좋다. [Jeremy Keith](https://adactio.com/)는 그의 ebook/팟캐스트에서 [탄력있는 웹 디자인(Resilient Web Design)](https://resilientwebdesign.com/)에 대해 중요성을 설명한다. 따라서 서버에서 중요 컨텐츠(core content)를 렌더할 수 있는 능력이 중요하다. 안타깝게도 웹 컴포넌트의 spec은 서버 렌더링에 대해 전혀 언급하지 않는다. JavaScript에도 없고 ustom Elements에도 언급은 없다. :(
 
 ### Custom Elements + Server Side Includes = ❤️
 
