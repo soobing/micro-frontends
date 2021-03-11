@@ -217,22 +217,24 @@ DOM 메소드를 호출하는 것은 매우 드물지만, [video element api](ht
 
 Custom Element는 브라우저 내의 컴포넌트를 통합하는 데 유용하다. 그러나 웹에서 접속 가능한 사이트를 구축할 때 초기 load performance가 문제될 가능성이 있고 모든 js 프레임워크가 다운로드되고 실행될 때까지 사용자는 흰색 화면을 볼 수 있다. 또한 JavaScript가 실패하거나 차단될 경우 사이트에 어떤 일이 발생할지 생각해 보는 것이 좋다. [Jeremy Keith](https://adactio.com/)는 그의 ebook/팟캐스트에서 [탄력있는 웹 디자인(Resilient Web Design)](https://resilientwebdesign.com/)에 대해 중요성을 설명한다. 따라서 서버에서 중요 컨텐츠(core content)를 렌더할 수 있는 능력이 중요하다. 안타깝게도 웹 컴포넌트의 spec은 서버 렌더링에 대해 전혀 언급하지 않는다. JavaScript에도 없고 ustom Elements에도 언급은 없다. :(
 
-### Custom Elements + Server Side Includes = ❤️
+### Custom Elements + Server Side Includes = ❤️ 사랑입니다
 
-To make server rendering work, the previous example is refactored. Each team has their own express server and the `render()` method of the Custom Element is also accessible via url.
+서버 렌더링을 가능하게 하기 위해 이전 예제를 리펙토링 했다. 팀별로 express 서버를 가지고 있고 Custom Element의  `render()` 메서드를 url을 통해 접근할 수 있다. 
 
     $ curl http://127.0.0.1:3000/blue-buy?sku=t_porsche
     <button type="button">buy for 66,00 €</button>
 
 The Custom Element tag name is used as the path name - attributes become query parameters. Now there is a way to server-render the content of every component. In combination with the `<blue-buy>`-Custom Elements something that is quite close to a __Universal Web Component__ is achieved:
 
+Custom Element 태그 이름은 path name 으로 사용된다. 그리고 attribute는 query parameter가 된다. 이제 모든 컴포넌트의 콘텐츠를 서버 렌더링하는 방법이 있다. 거의  **Universal Web Component**에 가까운 Custom Elements인 `<blue-buy>`의 컴비네이션을 통해 할 수 있다.
+
     <blue-buy sku="t_porsche">
       <!--#include virtual="/blue-buy?sku=t_porsche" -->
     </blue-buy>
 
-The `#include` comment is part of [Server Side Includes](https://en.wikipedia.org/wiki/Server_Side_Includes), which is a feature that is available in most web servers. Yes, it's the same technique used back in the days to embed the current date on our web sites. There are also a few alternative techniques like [ESI](https://en.wikipedia.org/wiki/Edge_Side_Includes), [nodesi](https://github.com/Schibsted-Tech-Polska/nodesi), [compoxure](https://github.com/tes/compoxure) and [tailor](https://github.com/zalando/tailor), but for our projects SSI has proven itself as a simple and incredibly stable solution.
+#include로 시작하는 주석은 대부분의 웹 서버에서 사용할 수 있는 기능 [Server Side Includes](https://en.wikipedia.org/wiki/Server_Side_Includes)의 일부다. 그렇다. 이것은 예전에 우리 웹사이트에 현재 날짜를 임베드 시키기 위해 사용했던 것과 같은 기술이다. [ESI](https://en.wikipedia.org/wiki/Edge_Side_Includes), [nodesi](https://github.com/Schibsted-Tech-Polska/nodesi), [compoxure](https://github.com/tes/compoxure), [tailor](https://github.com/zalando/tailor)와 같은 몇 가지 대체 기술도 있지만, 우리 프로젝트의 SSI는 간단하고 믿을 수 없을 정도로 안정적인 해결책임이 증명 되었다.
 
-The `#include` comment is replaced with the response of `/blue-buy?sku=t_porsche` before the web server sends the complete page to the browser. The configuration in nginx looks like this:
+`#include` 코멘트는 웹 서버가 브라우저로 완성된 페이지를 보내기 전에 `/blue-buy?sku=t_porsche`의 응답으로 대체되었다. nginx의 구성은 다음과 같다.
 
     upstream team_blue {
       server team_blue:3001;
@@ -262,27 +264,28 @@ The `#include` comment is replaced with the response of `/blue-buy?sku=t_porsche
       }
     }
 
-The directive `ssi: on;` enables the SSI feature and an `upstream` and `location` block is added for every team to ensure that all urls which start with `/blue` will be routed to the correct application (`team_blue:3001`). In addition the `/` route is mapped to team red, which is controlling the homepage / product page.
+`ssi: on;` 지시어(directive)는 SSI 기능을 가능하게 한다. 그리고 모든 팀이  `/blue`로 시작하는 URL로 접속시 정확히 어플리케이션(`team_blue:3001`)으로 라우팅 되게 하기 위해서 `upstream`과 `location` 블럭이 추가 되었다. 또한 `/` route는 homepage / product 페이지를 관리하는 red팀에 매핑 된다.
 
-This animation shows the tractor store in a browser which has __JavaScript disabled__.
+이 애니메이션은 **JavaScript가 비활성화**된 트랙터 스토어 사이트를 보여준다.
 
 [![Serverside Rendering - Disabled JavaScript](./ressources/video/server-render.gif)](./ressources/video/server-render.mp4)
 
 [inspect the code](https://github.com/neuland/micro-frontends/tree/master/2-composition-universal)
 
-The variant selection buttons now are actual links and every click leads to a reload of the page. The terminal on the right illustrates the process of how a request for a page is routed to team red, which controls the product page and after that the markup is supplemented by the fragments from team blue and green.
 
-When switching JavaScript back on, only the server log messages for the first request will be visible. All subsequent tractor changes are handled client side, just like in the first example. In a later example the product data will be extracted from the JavaScript and loaded via a REST api as needed.
+상품 종류 선택 버튼은 이제 실제 링크이며 클릭할 때마다 페이지가 다시 로드된다. 오른쪽 터미널은 product 페이지를 제어하는 red 팀으로 페이지 요청이 라우팅되는 과정을 보여 주며, 이후 팀 블루와 그린의 조각으로 마크업이 보완된다.
 
-You can play with this sample code on your local machine. Only [Docker Compose](https://docs.docker.com/compose/install/) needs to be installed.
+JavaScript를 다시 switching하면 오직 첫 번째 요청에 대한 서버 로그 메시지만 표시된다. 이후의 모든 트랙터 변경은 첫 번째 예제와 마찬가지로 클라이언트 측에서 처리된다. 다음 예시 에서는 product 데이터가 JavaScript와 필요에 따라 REST api를 통해 추출되어 로드된다.
+
+이 샘플 코드를 로컬 컴퓨터에서 재생할 수 있다. [Docker Compose](https://docs.docker.com/compose/install/)만 설치하면 된다.
 
     git clone https://github.com/neuland/micro-frontends.git
     cd micro-frontends/2-composition-universal
     docker-compose up --build
 
-Docker then starts the nginx on port 3000 and builds the node.js image for each team. When you open [http://127.0.0.1:3000/](http://127.0.0.1:3000/) in your browser you should see a red tractor. The combined log of `docker-compose` makes it easy to see what is going on in the network. Sadly there is no way to control the output color, so you have to endure the fact that team blue might be highlighted in green :)
+Docker는 포트 3000에서 nginx를 시작하고 각 팀에 대해 노드.js 이미지를 구축한다. 브라우저에서 [http://127.0.0.1:3000/](http://127.0.0.1:3000/)을 열면 빨간색 트랙터를 볼 수 있다. 도커 컴포즈의 combined된 로그는 네트워크에서 무슨 일이 일어나고 있는지 쉽게 알 수 있게 해준다. 슬프게도 출력되는 색상을 제어할 방법이 없으므로 blue 팀이 녹색으로 강조되어 보일 수 있다는 사실은 이해해줘야 한다. :)
 
-The `src` files are mapped into the individual containers and the node application will restart when you make a code change. Changing the `nginx.conf` requires a restart of `docker-compose` in order to have an effect. So feel free to fiddle around and give feedback.
+src 파일은 개별 컨테이너에 매핑되며 코드를 변경하면 노드 어플리케이션이이 다시 시작된다. `nginx.conf`를 변경한 것을 확인하려면 `docker-compose`를 다시 시작해야 한다. 그러니 마음껏 만지작거리고 피드백을 주세용.
 
 ### Data Fetching & Loading States
 
