@@ -289,13 +289,9 @@ src 파일은 개별 컨테이너에 매핑되며 코드를 변경하면 노드 
 
 ### Data Fetching & Loading States
 
-A downside of the SSI/ESI approach is, that the __slowest fragment determines the response time__ of the whole page.
-So it's good when the response of a fragment can be cached.
-For fragments that are expensive to produce and hard to cache it's often a good idea to exclude them from the initial render.
-They can be loaded asynchronously in the browser.
-In our example the `green-recos` fragment, that shows personalized recommendations is a candidate for this.
+SSI/ESI 접근 방식의 단점은 **가장 느린 fragment가 전체 페이지의 응답 시간을 결정**한다는 것이다. 따라서 fragment의 response가 캐시될 수 있을 때 좋다. 제작 비용이 많이 들고 캐싱하기 어려운 response는 종종 초기 렌더링에서 제외하는 것이 좋다. 이러한 파일은 브라우저에서 비동기식으로 로드할 수 있다. 우리의 예제에서, 개인에 따라 맞춤 추천을 보여주는 `green-recos` 이에 대한 후보이다.
 
-One possible solution would be that team red just skips the SSI Include.
+가능한 해결책 중 하나는 red 팀이 SSI 포함시키지 않는 것이다.
 
 **Before**
 
@@ -307,24 +303,15 @@ One possible solution would be that team red just skips the SSI Include.
 
     <green-recos sku="t_porsche"></green-recos>
 
-*Important Side-note: Custom Elements [cannot be self-closing](https://developers.google.com/web/fundamentals/architecture/building-components/customelements#jsapi), so writing `<green-recos sku="t_porsche" />` would not work correctly.*
+*중요한 Side-note: Custom Element는 [self-closing이 지원되지 않으므로](https://developers.google.com/web/fundamentals/architecture/building-components/customelements#jsapi), `<green-recos sku="t_porsche" />`로 코드 작성시 제대로 동작하지 않을 수 있다.*
+
 
 <img alt="Reflow" src="./ressources/video/data-fetching-reflow.gif" style="width: 500px" />
 
-The rendering only takes place in the browser.
-But, as can be seen in the animation, this change has now introduced a __substantial reflow__ of the page.
-The recommendation area is initially blank.
-Team greens JavaScript is loaded and executed.
-The API call for fetching the personalized recommendation is made.
-The recommendation markup is rendered and the associated images are requested.
-The fragment now needs more space and pushes the layout of the page.
+렌더링 작업은 브라우저에서만 수행된다. 하지만, 애니메이션에서 볼 수 있듯이, 이 변화는 이제 페이지의 **상당한 반향(substantial reflow)**을 가져왔다. 추천 영역이 처음에는 비어있다. greens팀의 JavaScript가 로드되고 실행된다. 개인화된 권장 사항을 가져오기 위한 API 호출이 수행됩니다. 추천 영역 마크업이 렌더되고 관련 이미지가 요청된다. fragment는 더 많은 공간이 필요해 페이지의 레이아웃에 밀어넣는다.
 
-There are different options to avoid an annoying reflow like this.
-Team red, which controls the page, could __fixate the recommendation containers height__.
-On a responsive website its often tricky to determine the height, because it could differ for different screen sizes.
-But the more important issue is, that __this kind of inter-team agreement creates a tight coupling__ between team red and green.
-If team green wants to introduce an additional sub-headline in the reco element, it would have to coordinate with team red on the new height.
-Both teams would have to rollout their changes simultaneously to avoid a broken layout.
+이와 같은 성가신 반향을 피할 수 있는 다른 방법들이 있다. 페이지를 제어하는 red 팀이 **추천 영역의 컨테이너 높이**를 고정할 수 있다. 반응형 웹 사이트에서는 화면 크기에 따라 사이즈가 달라질 수 있기 때문에 높이를 결정하는 것이 종종 쉽지 않을 수 있다. 그러나 더 중요한 문제는 이런 종류의 팀 간 합의가 red 팀과 green 팀 간의 **타이트한 커플링(tight coupling)을 만든다.** 만약 green팀이 reco element에 추가적인 sub-headline를 도입하려면, 새로운 height에 대해 red팀과 협력해야 한다. 두 팀 모두 레이아웃이 깨지는 것을 피하기위해 변경 사항을 동시에 출시해야 할 것 이다.
+
 
 A better way is to use a technique called [Skeleton Screens](https://blog.prototypr.io/luke-wroblewski-introduced-skeleton-screens-in-2013-through-his-work-on-the-polar-app-later-fd1d32a6a8e7).
 Team red leaves the `green-recos` SSI Include in the markup.
@@ -332,17 +319,14 @@ In addition team green changes the __server-side render method__ of its fragment
 The __skeleton markup__ can reuse parts of the real content's layout styles.
 This way it __reserves the needed space__ and the fill-in of the actual content does not lead to a jump.
 
+더 좋은 방법은 스켈레톤 스크린이라고 불리는 기술을 사용하는 것이다. 빨간색 팀은 마크업에서 녹색-Recos SSI Include를 남깁니다. 또한 팀 그린은 서버측 렌더링 방법을 변경하여 컨텐츠의 개략적인 버전을 생성합니다. 스켈레톤 표시는 실제 콘텐츠의 레이아웃 스타일 일부를 재사용할 수 있습니다. 이렇게 하면 필요한 공간을 확보할 수 있고 실제 콘텐츠의 채우기가 점프를 유도하지 않는다.
+
 <img alt="Skeleton Screen" src="./ressources/video/data-fetching-skeleton.gif" style="width: 500px" />
 
-Skeleton screens are also __very useful for client rendering__.
-When your custom element is inserted into the DOM due to a user action it could __instantly render the skeleton__ until the data it needs from the server has arrived.
+Skeleton UI는 **클라이언트 렌더링에** 매우 유용하다. custom element가 user action으로 인해 DOM에 삽입되면 서버에서 필요한 데이터가 도착할 때까지 **즉시 skeleton을 렌더**할 수 있다.
 
-Even on an __attribute change__ like for the _variant select_ you can decide to switch to skeleton view until the new data arrives.
-This ways the user gets an indication that something is going on in the fragment.
-But when your endpoint responds quickly a short __skeleton flicker__ between the old and new data could also be annoying.
-Preserving the old data or using intelligent timeouts can help.
-So use this technique wisely and try to get user feedback.
-
+*상품 변경 선택자* 같이 **attribute 변경**에서도 새 데이터가 도착할 때까지 skeleton으로 전환할 수 있다. 이렇게 하면 사용자는 fragment에서 어떤 일이 일어나고 있다는 것을 알 수 있다. 그러나 endpoint가 빠르게 응답할 경우 이전 데이터와 새 데이터 사이의 짧은 **skeleton 깜박임**이 성가실 수 있다. 이전 데이터를 보존하거나 똑똑하게 timeout을 
+사용하는 것이 도움이 될 수 있다. 따라서 이 기술을 현명하게 사용하고 user 피드백을 얻도록 노력하라.
 ## Navigating Between Pages
 
 __to be continued soon ... (I promise)__
