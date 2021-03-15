@@ -54,7 +54,7 @@ __Organisation in Verticals__
 
 세 가지 트랙터 모델을 변경할 수 있는 **상품 변경** 기능을 가지고 있다. 제품 이미지를 변경하면 이름, 가격 및 추천 상품이 업데이트 된다. 또한 선택한 항목을 바구니에 추가하는 **구입 버튼**과 그에 따라 상단에 업데이트되는 **장바구니**가 있다.
 
-[![Example 0 - Product Page - Plain JS](./assets/video/micro-frontend/model-store-0.gif)](./0-model-store/)
+[![Example 0 - Product Page - Plain JS](./ressources/video/model-store-0.gif)](./0-model-store/)
 
 [try in browser](./0-model-store/) & [inspect the code](https://github.com/neuland/micro-frontends/tree/master/0-model-store)
 
@@ -86,7 +86,7 @@ __Organisation in Verticals__
 
 이제 브라우저가 `blue-buy` 태그를 만날 때마다 `connectedCallback`가 호출된다. `this`는 custom element의 root DOM 노드에 대한 참조다. `innerHTML` 또는 `getAttribute()`와 같이 표준 DOM element의 모든 properties와 methods를 사용할 수 있다.
 
-![Custom Element in Action](./assets/video/micro-frontend/custom-element.gif)
+![Custom Element in Action](./ressources/video/custom-element.gif)
 
  custom element를 명명할 때 스펙에서 요구하는 유일한 사항은 새로 등장하는 HTML 태그와의 호환성을 유지하기 위해 **대시(-)를 포함**해야 한다는 것이다. 다음 예제에서 naming convention으로 [team_color]-[feature]를 사용했다. 팀 네임 스페이스는 충돌에 대비하는 역할을 하고, DOM을 보는 것만으로 어떤 팀이 관리하는 feature 인지 명백히 알 수 있다.
 
@@ -107,7 +107,7 @@ __Organisation in Verticals__
 
 만약 Product팀(red)이 React와 같은 DOM diffing을 특징으로하는 템플링 엔진을 사용한다면 자동으로 알고리즘이 수행될 것이다.
 
-![Custom Element Attribute Change](./assets/video/micro-frontend/custom-element-attribute.gif)
+![Custom Element Attribute Change](./ressources/video/custom-element-attribute.gif)
 
 이를 지원하기 위해 custom element는 `attributeChangedCallback`을 구현할 수 있고 callback이 트리거되어야 하는 속성 리스트를 `observedAttributes`으로 지정할 수 있다.
 
@@ -259,7 +259,7 @@ Custom Element 태그 이름은 path name 으로 사용된다. 그리고 attribu
 
 이 애니메이션은 **JavaScript가 비활성화(disabled)** 된 트랙터 스토어 사이트를 보여준다.
 
-[![Serverside Rendering - Disabled JavaScript](./assets/video/micro-frontend/server-render.gif)](./assets/video/micro-frontend/server-render.mp4)
+[![Serverside Rendering - Disabled JavaScript](./ressources/video/server-render.gif)](./ressources/video/server-render.mp4)
 
 [inspect the code](https://github.com/neuland/micro-frontends/tree/master/2-composition-universal)
 
@@ -297,7 +297,7 @@ SSI/ESI 접근 방식의 단점은 **가장 느린 fragment가 전체 페이지�
 *중요한 Side-note: Custom Element는 [self-closing이 지원되지 않으므로](https://developers.google.com/web/fundamentals/architecture/building-components/customelements#jsapi), `<green-recos sku="t_porsche" />`로 코드 작성시 제대로 동작하지 않을 수 있다.*
 
 
-<img alt="Reflow" src="./assets/video/micro-frontend/data-fetching-reflow.gif" style="width: 500px" />
+<img alt="Reflow" src="./ressources/video/data-fetching-reflow.gif" style="width: 500px" />
 
 렌더링 작업은 브라우저에서만 수행된다. 하지만, 애니메이션에서 볼 수 있듯이, 이 변화는 이제 페이지의 **상당한 반향(substantial reflow)**을 가져왔다. 추천 영역이 처음에는 비어있다. green 팀의 JavaScript가 로드되고 실행된다. 개인화된 권장 사항을 가져오기 위한 API 호출이 수행된다. 그리고 추천 영역 마크업이 렌더되고 관련 이미지가 요청된다. 그 후, fragment는 더 많은 공간이 필요해 페이지의 레이아웃에 밀어넣는다.
 
@@ -305,7 +305,7 @@ SSI/ESI 접근 방식의 단점은 **가장 느린 fragment가 전체 페이지�
 
 더 좋은 방법은 skeleton screen이라고 불리는 기술을 사용하는 것이다. red 팀은 마크업에서 녹색-Recos SSI Include를 남긴다. 또한 green 팀은 서버측 렌더링 방법을 변경하여 컨텐츠의 개략적인 버전을 생성한다. skeleton 표시는 실제 콘텐츠의 레이아웃 스타일 일부를 재사용할 수 있다. 이렇게 하면 필요한 공간을 확보할 수 있고 실제 콘텐츠의 채우기가 점프를 유도하지 않는다.
 
-<img alt="Skeleton Screen" src="./assets/video/micro-frontend/data-fetching-skeleton.gif" style="width: 500px" />
+<img alt="Skeleton Screen" src="./ressources/video/data-fetching-skeleton.gif" style="width: 500px" />
 
 Skeleton Screen은 **클라이언트 렌더링에** 매우 유용하다. custom element가 user action으로 인해 DOM에 삽입되면 서버에서 필요한 데이터가 도착할 때까지 **즉시 skeleton을 렌더**할 수 있다.
 
