@@ -23,12 +23,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/neuland/micro-frontends.git"
+    "url": "git+https://github.com/soobing/micro-frontends.git"
   },
-  "author": "neuland",
+  "author": "soobing",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/neuland/micro-frontends/issues"
+    "url": "https://github.com/soobing/micro-frontends/issues"
   },
-  "homepage": "https://github.com/neuland/micro-frontends#readme"
+  "homepage": "https://github.com/soobing/micro-frontends#readme"
 }
