@@ -4,7 +4,7 @@
 @import "{{ site.theme }}";
 
 @font-face {
-  font-family: 'Nanum Myeongjo', serif, 'Handlee';
+  font-family: 'Handlee';
   font-style: normal;
   font-weight: 400;
   src: local('Handlee Regular'), local('Handlee-Regular'),
@@ -15,6 +15,10 @@
 
 .inner {
   line-height: 1.6em;
+}
+
+#content-wrapper {
+  font-family: 'Nanum Myeongjo', serif, 'Handlee';
 }
 
 @media only screen and (max-width: 767px) {
