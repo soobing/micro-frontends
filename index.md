@@ -35,6 +35,8 @@ __Organisation in Verticals__
 * __Custom APIs보다 기본 브라우저 기능 선호__<br>글로벌 PubSub 시스템을 구축하는 대신 [통신을 위한 브라우저 이벤트(Browser Events for communication)](#parent-child-communication--dom-modification)를 사용하자. 만약 당신이 정말로 크로스 팀 API를 구축해야 한다면, 가능한 간단하게 하도록 노력 하자.
 
 * __탄력있는 사이트 구축__<br>JavaScript에서 에러가 나거나 아직 실행되지 않은 경우에도 기능(feature) 사용이 가능 해야 한다. 눈에 띄는 성능 향상을 위해 [범용 렌더링(Universal Rendering)](#serverside-rendering--universal-rendering) 과 [점진적 향상(Progressive Enhancement)](https://developer.mozilla.org/ko/docs/Glossary/Progressive_Enhancement)을 사용하자.
+
+
 ---
 
 ## DOM은 API다.
