@@ -67,7 +67,7 @@ __Organisation in Verticals__
 
 예제에서 이 페이지는 세개의 팀이 별도로 소유한 components/fragments로 분할 된다. 이제 **구매 버튼**과 **장바구니**와 같은 구매 프로세스와 관련된 모든 책임은 **Checkout팀 (파란색)** 이 가지고 있다고 하자. **Inspire팀 (녹색)** 은 이 페이지의 **추천 제품** 을 관리한다. 페이지 자체는 **Product팀 (빨간색)** 이 소유하고 있다.
 
-[![Example 1 - Product Page - Composition](./ressources/diagrams/organisational/three-teams.png)](./1-composition-client-only/)
+[![Example 1 - Product Page - Composition](./ressources/screen/three-teams.png)](./1-composition-client-only/)
 
 [try in browser](./1-composition-client-only/) & [inspect the code](https://github.com/neuland/micro-frontends/tree/master/1-composition-client-only)
 
