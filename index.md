@@ -93,7 +93,7 @@ __Organisation in Verticals__
  custom element를 명명할 때 스펙에서 요구하는 유일한 사항은 새로 등장하는 HTML 태그와의 호환성을 유지하기 위해 **대시(-)를 포함**해야 한다는 것이다. 다음 예제에서 naming convention으로 [team_color]-[feature]를 사용했다. 팀 네임 스페이스는 충돌에 대비하는 역할을 하고, DOM을 보는 것만으로 어떤 팀이 관리하는 feature 인지 명백히 알 수 있다.
 
 
-### Parent-Child Communication / DOM Modification
+### Parent-Child 커뮤니케이션 / DOM 수정
 
 사용자가 **상품 변경**에서 다른 트랙터를 선택하면 그에 따라 **구매 버튼을 업데이트**해야 한다. Product팀(red)은 쉽게 DOM에서 기존 element를 **제거**하고 새로운 element를 **추가** 할 수 있다.
 
@@ -147,11 +147,11 @@ To avoid duplication a `render()` method is introduced which is called from `con
 
 위의 예에서는 현재 [Chrome, Safari 및 Opera에서 지원](http://caniuse.com/#feat=custom-elementsv1)되는 Custom Element V1 Spec을 사용한다. 그러나 [document-register-element](https://github.com/WebReflection/document-register-element)를 사용하면 가볍고 battle-tested polyfill을 모든 브라우저에서 사용할 수 있다. Under the hood, [널리 지원](http://caniuse.com/#feat=mutationobserver)되는 Mutation Observer API를 사용하기 때문에 백그라운드에서 해킹된 DOM 트리가 발견될 경우는 없다.
 
-### Framework 호환성
+### 프레임워크 호환성
 
 Custom Elements는 웹 표준이기 때문에 Angular, React, Preact, Vue 또는 Hyperapp와 같은 주요 JavaScript 프레임워크를 모두 지원한다. 그러나 세부 사항을 살펴보면 일부 프레임워크에서는 여전히 몇 가지 구현 문제가 있다. [Rob Dodson](https://twitter.com/rob_dodson)은 [Custom Elements Everywhere](https://custom-elements-everywhere.com/) 에서 해결되지 않은 호환성 테스트 핵심 문제 세트를 모아두었다.
 
-### 자식(Child)-부모(Parent) or 형제(Siblings) 간의 Communication / DOM Events
+### 자식(Child)-부모(Parent) or 형제(Siblings) 간의 커뮤니케이션 / DOM Events
 
 그러나 attribute들을 아래로 전달하는 것만으로는 모든 인터렉션을 위해 충분하지 않다. 이 예에서는 사용자가 구매 버튼을 클릭하면 **장바구니는 꼭 refresh 되어야 한다**.
 
@@ -208,7 +208,7 @@ Checkout팀(blue)이 fragments를 장바구니와 구매버튼 두 개 모두 �
     });
 
 DOM 메소드를 호출하는 것은 매우 드물지만, [video element api](https://developer.mozilla.org/de/docs/Web/HTML/Using_HTML5_audio_and_video#Controlling_media_playback)에서 예시를 볼 수 있다. 가능하면 선언적(declarative) 접근법인 속성 변경하는 방식의 사용을 선호해야 한다.
-## Serverside Rendering / Universal Rendering
+## Serverside 렌더링 / Universal 렌더링
 
 Custom Elements는 브라우저 내의 컴포넌트를 통합하는 데 유용하다. 그러나 웹에서 접속 가능한 사이트를 구축할 때 초기 load performance가 문제될 가능성이 있고 모든 js 프레임워크가 다운로드되고 실행될 때까지 사용자는 흰색 화면을 볼 수 있다. 또한 JavaScript가 실패하거나 차단될 경우 사이트에 어떤 일이 발생할지 생각해 보는 것이 좋다. [Jeremy Keith](https://adactio.com/)는 그의 ebook/팟캐스트에서 [탄력있는 웹 디자인(Resilient Web Design)](https://resilientwebdesign.com/)에 대해 중요성을 설명한다. 따라서 서버에서 중요 컨텐츠(core content)를 렌더할 수 있는 능력이 중요하다. 안타깝게도 웹 컴포넌트 spec은 서버 렌더링에 대해 전혀 언급하지 않는다. JavaScript에도 없고 custom Eeements에도 언급은 없다. :(
 
@@ -303,7 +303,7 @@ SSI/ESI 접근 방식의 단점은 **가장 느린 fragment가 전체 페이지�
 
 렌더링 작업은 브라우저에서만 수행된다. 하지만, 애니메이션에서 볼 수 있듯이, 이 변화는 이제 페이지의 **상당한 반향(substantial reflow)**을 가져왔다. 추천 영역이 처음에는 비어있다. green 팀의 JavaScript가 로드되고 실행된다. 개인화된 권장 사항을 가져오기 위한 API 호출이 수행된다. 그리고 추천 영역 마크업이 렌더되고 관련 이미지가 요청된다. 그 후, fragment는 더 많은 공간이 필요해 페이지의 레이아웃에 밀어넣는다.
 
-이와 같은 성가신 반향(reflow)을 피할 수 있는 다른 방법들이 있다. 페이지를 제어하는 red 팀이 **추천 영역의 컨테이너 높이**를 고정할 수 있다. 반응형 웹 사이트에서는 화면 크기에 따라 사이즈가 달라질 수 있기 때문에 높이를 결정하는 것이 종종 쉽지 않을 수 있다. 그러나 더 중요한 문제는 이런 종류의 팀 간 합의가 red 팀과 green 팀 간의 **타이트한 커플링(tight coupling)을 만든다.** 만약 green팀이 reco element에 추가적인 sub-headline를 도입하려면, 새로운 height에 대해 red팀과 협력해야 한다. 두 팀 모두 레이아웃이 깨지는 것을 피하기위해 변경 사항을 동시에 출시해야 할 것 이다.
+이와 같은 성가신 반향(reflow)을 피할 수 있는 다른 방법들이 있다. 페이지를 제어하는 red 팀이 **추천 영역의 컨테이너 높이**를 고정할 수 있다. 반응형 웹 사이트에서는 화면 크기에 따라 사이즈가 달라질 수 있기 때문에 높이를 결정하는 것이 종종 쉽지 않을 수 있다. 그러나 더 중요한 문제는 이런 종류의 팀 간 합의가 red 팀과 green 팀 간의 **타이트한 커플링(tight coupling)을 만든다.** 만약 green팀이 reco element에 추가적인 sub-headline를 도입하려면, 새로운 높이에 대해 red팀과 협력해야 한다. 두 팀 모두 레이아웃이 깨지는 것을 피하기위해 변경 사항을 동시에 출시해야 할 것 이다.
 
 더 좋은 방법은 skeleton screen이라고 불리는 기술을 사용하는 것이다. red 팀은 마크업에서 녹색-Recos SSI Include를 남긴다. 또한 green 팀은 서버측 렌더링 방법을 변경하여 컨텐츠의 개략적인 버전을 생성한다. skeleton 표시는 실제 콘텐츠의 레이아웃 스타일 일부를 재사용할 수 있다. 이렇게 하면 필요한 공간을 확보할 수 있고 실제 콘텐츠의 채우기가 점프를 유도하지 않는다.
 
@@ -311,8 +311,8 @@ SSI/ESI 접근 방식의 단점은 **가장 느린 fragment가 전체 페이지�
 
 Skeleton Screen은 **클라이언트 렌더링에** 매우 유용하다. custom element가 user action으로 인해 DOM에 삽입되면 서버에서 필요한 데이터가 도착할 때까지 **즉시 skeleton을 렌더**할 수 있다.
 
-*상품 변경 선택자* 같이 **attribute 변경**에서도 새 데이터가 도착할 때까지 skeleton으로 전환할 수 있다. 이렇게 하면 사용자는 fragment에서 어떤 일이 일어나고 있다는 것을 알 수 있다. 그러나 endpoint가 빠르게 응답할 경우 이전 데이터와 새 데이터 사이의 짧은 **skeleton 깜박임**이 성가실 수 있다. 이전 데이터를 보존하거나 똑똑하게 timeout을 
-사용하는 것이 도움이 될 수 있다. 따라서 이 기술을 현명하게 사용하고 user 피드백을 얻도록 노력하라.
+*상품 변경 선택자* 같이 **attribute 변경**에서도 새 데이터가 도착할 때까지 skeleton으로 전환할 수 있다. 이렇게 하면 사용자는 fragment에서 어떤 일이 일어나고 있다는 것을 알 수 있다. 그러나 엔드포인트가 빠르게 응답할 경우 이전 데이터와 새 데이터 사이의 짧은 **skeleton 깜박임**이 성가실 수 있다. 이전 데이터를 보존하거나 똑똑하게 timeout을 
+사용하는 것이 도움이 될 수 있다. 따라서 이 기술을 현명하게 사용하고 유저 피드백을 얻도록 노력하라.
 ## Navigating Between Pages
 
 __to be continued soon ... (I promise)__
