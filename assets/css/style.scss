@@ -4,13 +4,11 @@
 @import "{{ site.theme }}";
 
 @font-face {
-  font-family: 'Nanum Myeongjo', serif, 'Handlee';
+  font-family: 'Handlee';
   font-style: normal;
   font-weight: 400;
   src: local('Handlee Regular'), local('Handlee-Regular'),
-       url('/resources/fonts/NanumMyeongjo-Regular.ttf') format('ttf'),
-       url('/resources/fonts/NanumMyeongjo-Bold.ttf') format('ttf'),
-       url('/resources/fonts/NanumMyeongjo-ExtraBold.ttf') format('ttf'),
+       url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap'),
        url('/ressources/fonts/handlee-v8-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
        url('/ressources/fonts/handlee-v8-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
@@ -19,6 +17,9 @@
   line-height: 1.6em;
 }
 
+#content-wrapper {
+  font-family: 'Nanum Myeongjo', serif, 'Handlee';
+}
 
 @media only screen and (max-width: 767px) {
   .inner {
