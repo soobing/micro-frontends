@@ -139,8 +139,6 @@ __Organisation in Verticals__
     }
     window.customElements.define('blue-buy', BlueBuy);
 
-To avoid duplication a `render()` method is introduced which is called from `connectedCallback` and `attributeChangedCallback`. This method collects needed data and innerHTML's the new markup. When deciding to go with a more sophisticated templating engine or framework inside the Custom Element, this is the place where its initialisation code would go.
-
 `connectedCallback`와 `ChangedCallback` 속성에서 모두 호출되는 중복코드를 없애기 위해 `render()`메서드를 사용 했다. render 메서드는 필요한 데이터와 innerHTML에 변경될 새로운 마크업을 함수안에 들고 있다. 더 정교한 템플릿 엔진이나 custom element 내의 프레임워크와 함께 개발할 때 render 함수에서 초기화 코드가 사용된다.
 
 ### 브라우저 지원
